@@ -39,6 +39,8 @@ about:
   license_family: MIT
   license_file: LICENSE
   summary: Setuptools rust extension plugin
+  dev_url: https://github.com/PyO3/setuptools-rust
+  doc_url: https://setuptools-rust.readthedocs.io/en/latest/
 
 extra:
   recipe-maintainers:
