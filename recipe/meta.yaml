@@ -39,6 +39,9 @@ about:
   license_family: MIT
   license_file: LICENSE
   summary: Setuptools rust extension plugin
+  description: |
+    setuptools-rust is a plugin for setuptools to build Rust Python extensions implemented with PyO3 or rust-cpython.
+    Compile and distribute Python extensions written in Rust as easily as if they were written in C.
   dev_url: https://github.com/PyO3/setuptools-rust
   doc_url: https://setuptools-rust.readthedocs.io/
 
