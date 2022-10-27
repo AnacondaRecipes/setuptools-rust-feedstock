@@ -50,3 +50,6 @@ extra:
   recipe-maintainers:
     - davidhewitt
     - nicoddemus
+  # setuptools is a run requirement
+  skip-lints:
+    - uses_setuptools
