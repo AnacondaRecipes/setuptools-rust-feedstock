@@ -39,7 +39,7 @@ about:
   license: MIT
   license_family: MIT
   license_file: LICENSE
-  license_url: https://github.com/PyO3/setuptools-rust/blob/v1.5.2/LICENSE
+  license_url: https://github.com/PyO3/setuptools-rust/blob/v{{ version }}/LICENSE
   summary: Setuptools rust extension plugin
   description: |
     setuptools-rust is a plugin for setuptools to build Rust Python extensions implemented with PyO3 or rust-cpython.
