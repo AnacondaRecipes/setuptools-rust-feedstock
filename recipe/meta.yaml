@@ -31,8 +31,10 @@ test:
   requires:
     - pip
     - pytest
+    - rust
   source_files:
     - tests/
+    - examples/
   commands:
     - pip check
     - pytest -v tests/
