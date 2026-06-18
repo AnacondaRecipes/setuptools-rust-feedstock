@@ -1,5 +1,5 @@
 {% set name = "setuptools-rust" %}
-{% set version = "1.12.0" %}
+{% set version = "1.12.1" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/{{ name }}/{{ name.replace("-", "_") }}-{{ version }}.tar.gz
-  sha256: d94a93f0c97751c17014565f07bdc324bee45d396cd1bba83d8e7af92b945f0c
+  sha256: 85ae70989d96c9cfeb5ef79cf3bac2d5200bc5564f720a06edceedbdf6664640
 
 build:
   number: 0
@@ -18,26 +18,32 @@ requirements:
   host:
     - pip
     - python
-    - setuptools >=62.4
     - setuptools_scm
+    - setuptools >=62.4
   run:
     - python
-    - setuptools >=62.4
     - semantic_version >=2.8.2,<3
+    - setuptools >=62.4
 
+# This test will always fail on win_64,
+# because _override_cargo_default_target expect to get string different than "x86_64-pc-windows-msvc",
+# however it is always same in Anaconda environment.
+{% set disabled_tests = "not test_override_cargo_default_target_windows_msvc" %} # [win]
 test:
   imports:
     - setuptools_rust
-  requires:
-    - pip
-    - pytest
-    - rust
   source_files:
     - tests/
     - examples/
   commands:
     - pip check
-    - pytest -v tests/
+    - pytest -v -k "{{ disabled_tests }}" tests/ # [win]
+    - pytest -v tests/ # [osx or linux]
+  requires:
+    - {{ compiler('rust') }} # [osx or linux]
+    - pip
+    - pytest
+    - rust # [win]
 
 about:
   home: https://github.com/PyO3/setuptools-rust
@@ -52,9 +58,12 @@ about:
   doc_url: https://setuptools-rust.readthedocs.io/
 
 extra:
+  skip-lints:
+    # setuptools is needed in host for proper tests running
+    - python_build_tools_in_host
+    # rust is needed in requires for proper tests running
+    - should_use_compilers  # [win]
   recipe-maintainers:
     - davidhewitt
     - nicoddemus
-  # setuptools is a run requirement
-  skip-lints:
-    - uses_setuptools
+  
